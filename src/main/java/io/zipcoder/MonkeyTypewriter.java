@@ -24,6 +24,30 @@ public class MonkeyTypewriter {
         // For each Copier(one safe and one unsafe), create and start 5 monkeys copying the introduction to
         // A Tale Of Two Cities.
 
+        SafeCopier safeCopier = new SafeCopier(introduction);
+        UnsafeCopier unsafeCopier = new UnsafeCopier(introduction);
+
+
+        Thread[] safeThreads = new Thread[5];
+        for(int i=0; i<5; i++){
+            safeThreads[i]= new Thread(safeCopier);
+            safeThreads[i].start();
+
+        }
+
+        Thread[] unsafeThreads = new Thread[5];
+        for(int i=0; i<5; i++) {
+            unsafeThreads[i] = new Thread(unsafeCopier);
+            unsafeThreads[i].start();
+        }
+
+
+//            Thread monkey1 = new Thread();
+//        Thread monkey2 = new Thread();
+//        Thread monkey3 = new Thread();
+//        Thread monkey4 = new Thread();
+//        Thread monkey5 = new Thread();
+
 
         // This wait is here because main is still a thread and we want the main method to print the finished copies
         // after enough time has passed.
@@ -34,5 +58,7 @@ public class MonkeyTypewriter {
         }
 
         // Print out the copied versions here.
+        System.out.println("Safe Copy\n" +safeCopier.copied + "\n");
+        System.out.println("Unsafe Copy\n" + unsafeCopier.copied + "\n");
     }
 }
